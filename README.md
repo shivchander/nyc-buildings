@@ -10,11 +10,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* Install Go
-* Install mongodb
-* Download the dataset
-Dowload a copy of the dataset from https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh
-Export as a .CSV file
+- Install Go
+- Install mongodb
+- Download the dataset
+  Download a copy of the dataset from https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh
+  Export as building.csv file. Make sure the filename stays the same. Save it to the current project folder.
 
 MongoDB Driver
 
@@ -49,8 +49,31 @@ Run the app
 ```
 go run app.go
 ```
+
 Note: Run the app again if it fails to find a server. Make sure that an instance of 'mongod' is running.
 
 ## Testing
 
 Open localhost:3000/index in a browser
+
+![](images/index.jpg)
+
+Note: This instance has only the first 1000 records due to memory constraints. Follow the instructions and Change the code in app.go to include all the records. This is an intensive task (there are more than 1 million records) and will take time to extract data and load the webpage
+
+![](images/fetchAll.jpg)
+
+Search for specific records using BIN
+
+![](images/fetchbyBin.jpg)
+
+Invalid BIN
+
+![](images/invalidBin.jpg)
+
+Search for records within a year range by specifying the start and end years
+
+![](images/fetchbyYear.jpg)
+
+Invalid Year
+
+![](images/invalidYear.jpg)

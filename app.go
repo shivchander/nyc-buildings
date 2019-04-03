@@ -4,7 +4,6 @@ import (
 	. "nyc-buildings/config"
 	. "nyc-buildings/dao"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -44,22 +43,12 @@ func FindBuildingsEndpoint(w http.ResponseWriter, r *http.Request) {
 
 	start, _ := strconv.Atoi(params["Construct_Yr_start"])
 	end, _ := strconv.Atoi(params["Construct_Yr_end"])
-	//fmt.Println(start)
 	Buildings, err := dao.FindByYr(start, end)
 	if err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid Buildings BIN")
 		return
 	}
 	respondWithJson(w, http.StatusOK, Buildings)
-}
-
-
-func UpdateBuildingsEndPoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "not implemented yet !")
-}
-
-func DeleteBuildingsEndPoint(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "not implemented yet !")
 }
 
 
@@ -93,11 +82,7 @@ func init() {
 func main() {
 	r := mux.NewRouter()
 
-	
 	r.HandleFunc("/buildings", AllBuildingsEndPoint).Methods("GET")
-	//	r.HandleFunc("/Buildings", CreateBuildingsEndPoint).Methods("GET")
-	r.HandleFunc("/buildings", UpdateBuildingsEndPoint).Methods("PUT")
-	r.HandleFunc("/buildings", DeleteBuildingsEndPoint).Methods("DELETE")
 	r.HandleFunc("/buildings/{BIN}", FindBuildingsBinEndpoint).Methods("GET")
 	r.HandleFunc("/buildings/{Construct_Yr_start}/{Construct_Yr_end}", FindBuildingsEndpoint).Methods("GET")
 		r.HandleFunc("/index", index).Methods("GET")

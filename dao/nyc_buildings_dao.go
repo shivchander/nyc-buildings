@@ -58,10 +58,11 @@ func(m *BuildingsDAO) PushAll() {
 	//check if data already pushed
 	if len(Buildings) <=0 {
 	//insert only if table is empty
-	fmt.Println("Push 1000 records from excel Invoked")
+	fmt.Println("Extracting 1000 records from CSV")
 		buildings := extract()
-		//fmt.Println( len(buildings))
 	
+	// Remove i<=1000 to insert all the records. This is intensive and will take time to extract 
+	// and load into the webpage
 	for i, b := range buildings {
 		if i <= 1000  && i > 0 {
 		b.ID = bson.NewObjectId()
@@ -69,12 +70,12 @@ func(m *BuildingsDAO) PushAll() {
 		}
 	}		 
 
-	fmt.Println("Push 1000 records into mongodb Finished")
+	fmt.Println("Pushed 1000 records into mongodb")
 	}
 }
 
 func extract() []*Buildings {
-	fmt.Println("Extraction Beginning")
+	fmt.Println("Extraction Beginning ...")
 	result := []*Buildings{}
 	f, _ := os.Open("./building.csv")
 	defer f.Close()
@@ -107,7 +108,6 @@ func (m *BuildingsDAO) FindAll() ([]Buildings, error) {
 func (m *BuildingsDAO) FindById(bin int) (Buildings, error) {
 	var Buildings Buildings
 	err := db.C(COLLECTION).Find(bson.D{{"BIN", bin}}).One(&Buildings)
-	fmt.Println(Buildings.Shape_Area)
 	return Buildings, err
 }
 

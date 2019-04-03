@@ -32,13 +32,6 @@
         width: 50%;
       }
 
-      /*#txtStartDate:valid,  #txtEndDate:required:valid {
-    border: 1px solid green;
-      }
-
-    #txtStartDate:invalid,  #txtEndDate:required:invalid {
-    border: 1px solid red;
-    }*/
     </style>
   </head>
   <body onload="resetFilters()">
@@ -111,18 +104,14 @@
         fetch(fetchQ).then(function(resp) {
           resp.json().then(function(newData) {
             console.log(newData);
-            //newData.sort(compareByName);
             newData.sort(compareByYr);
             let html =
-      //        "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><th>Name</th><thead><tbody>";
                 "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><thead><tbody>";
             newData.forEach(building => {
               html +=
                 "<tr>" +
                 "<td>" +
                 building.BIN +
-               // "</td><td>" +
-                 // building.lststatype+
                   "</td><td>" +
                   building.GEOMSOURCE +
                     "</td><td>" +
@@ -131,8 +120,7 @@
                 building.Shape_Area +
                        "</td><td>" +
               building.Shape_Len +
-                //"</td><td>" +
-              //(building.Name == '' ? null : building.Name) +
+
                 "</td></tr>";
             });
             html += "</tbody></table>";
@@ -171,15 +159,14 @@
             console.log(building);
              if (building != null && building.BIN !=null) {
             let html =
-              //"<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><th>Name</th><thead><tbody>";
+              
                 "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><thead><tbody>";
 
             html +=
                 "<tr>" +
               "<td>" +
               building.BIN +
-              //"</td><td>" +
-              //building.lststatype +
+
               "</td><td>" +
               building.GEOMSOURCE +
               "</td><td>" +
@@ -188,8 +175,6 @@
               building.Shape_Area +
                      "</td><td>" +
             building.Shape_Len +
-              //"</td><td>" +
-              //(building.Name == '' ? null : building.Name) +
               "</td></tr>";
             html += "</tbody></table>";
             resultPane.innerHTML = html;
@@ -218,7 +203,7 @@
             if(newData!=null){
                newData.sort(compareByYr);
             let html =
-              //"<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><th>Name</th><thead><tbody>";
+          
                 "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><thead><tbody>";
             newData.forEach(building => {
               html +=
@@ -234,8 +219,7 @@
                 building.Shape_Area +
                     "</td><td>" +
               building.Shape_Len +
-                //"</td><td>" +
-                //(building.Name == '' ? null : building.Name) +
+
                 "</td></tr>";
             });
             html += "</tbody></table>";
