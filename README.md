@@ -54,26 +54,26 @@ Note: Run the app again if it fails to find a server. Make sure that an instance
 
 ## Testing
 
-Open localhost:3000/index in a browser
+### Open localhost:3000/index in a browser
 
-![](images/index.jpg)
+![](images/index.JPG)
 
 Note: This instance has only the first 1000 records due to memory constraints. Follow the instructions and Change the code in app.go to include all the records. This is an intensive task (there are more than 1 million records) and will take time to extract data and load the webpage
 
-![](images/fetchAll.jpg)
+![](images/fetchAll.JPG)
 
 Search for specific records using BIN
 
-![](images/fetchbyBin.jpg)
+![](images/fetchbyBin.JPG)
 
-Invalid BIN
+### Invalid BIN
 
-![](images/invalidBin.jpg)
+![](images/invalidBin.JPG)
 
 Search for records within a year range by specifying the start and end years
 
-![](images/fetchbyYear.jpg)
+![](images/fetchbyYear.JPG)
 
-Invalid Year
+### Invalid Year
 
-![](images/invalidYear.jpg)
+![](images/invalidYear.JPG)
