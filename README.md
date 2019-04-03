@@ -12,6 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Install Go
 - Install mongodb
+- Requires internet connection for Bootstrap CSS(CDN links)
 - Download the dataset:
   Download a copy of the dataset from https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh
   Export as building.csv file. Make sure the filename stays the same. Save it to the current project folder.
