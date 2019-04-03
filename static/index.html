@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Index</title>
+    <!-- bootstrap css -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <style>
+      .container {
+        padding-top: 40px;
+      }
+      
+      table{
+        text-align: center;
+      }
+      .input-group{
+        width: 50%;
+      }
+
+      /*#txtStartDate:valid,  #txtEndDate:required:valid {
+    border: 1px solid green;
+      }
+
+    #txtStartDate:invalid,  #txtEndDate:required:invalid {
+    border: 1px solid red;
+    }*/
+    </style>
+  </head>
+  <body onload="resetFilters()">
+    <div class="container">
+      <h3>NYC Buildings Survey DataSet</h3>
+      <br />
+      <p>
+        <input
+          type="submit"
+          class="btn btn-primary"
+          onclick="fetchalldata()"
+          value="Fetch All Data"
+        />
+      </p>
+      <p>
+        <input
+          type="submit"
+          class="btn btn-primary"
+          onclick="resetFilters()"
+          value="Reset All Filters"
+        />
+      </p>
+      <p>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter BIN" maxlength="10" aria-label="Enter BIN" id="txtBin"
+            aria-describedby="basic-addon2"  pattern="\d+">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" onclick="fetchdatabybin()">
+          Fetch By BIN
+            </button>
+          </div>
+        </div>
+      </p>
+   
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          id="txtStartDate"
+          placeholder="Enter Start Year (2000)"
+          class="form-control" 
+          maxlength="4"
+           pattern="\d+"
+          
+        />
+        <input
+          type="text"
+          id="txtEndDate"
+          placeholder="Enter End Year (2000)"
+          class="form-control" 
+             aria-describedby="basic-addon2" 
+             maxlength="4"
+              pattern="\d+"
+        />
+        <div class="input-group-append">
+        <input
+          type="submit"
+          class="btn btn-primary"
+          onclick="fetchdatabydaterange()"
+          value="Fetch Data"
+        />
+        </div>
+      </div>
+      <br />
+      <div id="results"></div>
+    </div>
+    <script>
+      function fetchalldata() {
+        let resultPane = document.querySelector("#results");
+        var fetchQ = "/buildings";
+        fetch(fetchQ).then(function(resp) {
+          resp.json().then(function(newData) {
+            console.log(newData);
+            //newData.sort(compareByName);
+            newData.sort(compareByYr);
+            let html =
+      //        "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><th>Name</th><thead><tbody>";
+                "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><thead><tbody>";
+            newData.forEach(building => {
+              html +=
+                "<tr>" +
+                "<td>" +
+                building.BIN +
+               // "</td><td>" +
+                 // building.lststatype+
+                  "</td><td>" +
+                  building.GEOMSOURCE +
+                    "</td><td>" +
+                building.Construct_Yr +
+                "</td><td>" +
+                building.Shape_Area +
+                       "</td><td>" +
+              building.Shape_Len +
+                //"</td><td>" +
+              //(building.Name == '' ? null : building.Name) +
+                "</td></tr>";
+            });
+            html += "</tbody></table>";
+            resultPane.innerHTML = html;
+          });
+        });
+        document.querySelector("#txtBin").value = "";
+        document.querySelector("#txtStartDate").value = "";
+        document.querySelector("#txtEndDate").value = "";
+      }
+
+      function compareByYr(a, b) {
+          if (a.Construct_Yr < b.Construct_Yr)
+            return -1;
+          if (a.Construct_Yr > b.Construct_Yr)
+            return 1;
+          return 0;
+        }
+
+          function compareByName(a, b) {
+              if (a.Name < b.Name)
+                return -1;
+              if (a.Name > b.Name)
+                return 1;
+              return 0;
+            }
+
+        
+
+      function fetchdatabybin() {
+        let resultPane = document.querySelector("#results");
+        let bin = document.querySelector("#txtBin").value;
+        var fetchQ = "/buildings/" + bin;
+        fetch(fetchQ).then(function(resp) {
+          resp.json().then(function(building) {
+            console.log(building);
+             if (building != null && building.BIN !=null) {
+            let html =
+              //"<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><th>Name</th><thead><tbody>";
+                "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><thead><tbody>";
+
+            html +=
+                "<tr>" +
+              "<td>" +
+              building.BIN +
+              //"</td><td>" +
+              //building.lststatype +
+              "</td><td>" +
+              building.GEOMSOURCE +
+              "</td><td>" +
+              building.Construct_Yr +
+              "</td><td>" +
+              building.Shape_Area +
+                     "</td><td>" +
+            building.Shape_Len +
+              //"</td><td>" +
+              //(building.Name == '' ? null : building.Name) +
+              "</td></tr>";
+            html += "</tbody></table>";
+            resultPane.innerHTML = html;
+
+          
+            }
+          else {
+              resultPane.innerHTML = "<div class='alert alert-danger' role='alert'>Invalid BIN Input Identified/ No Data Found </div >"
+            }
+          });
+        });
+
+        document.querySelector("#txtStartDate").value = "";
+        document.querySelector("#txtEndDate").value = "";
+      }
+
+      function fetchdatabydaterange() {
+        let resultPane = document.querySelector("#results");
+        let startDate = document.querySelector("#txtStartDate").value;
+        let endDate = document.querySelector("#txtEndDate").value;
+        var fetchQ = "/buildings/" + startDate + "/" + endDate;
+        fetch(fetchQ).then(function(resp) {
+          resp.json().then(function(newData) {
+            console.log(newData);
+           
+            if(newData!=null){
+               newData.sort(compareByYr);
+            let html =
+              //"<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><th>Name</th><thead><tbody>";
+                "<table class='table  table-striped table-bordered'><thead class='thead-dark'><th>BIN</th><th>Geom Source</th><th>Construction Year</th><th>Shape Area</th> <th>Shape Length</th><thead><tbody>";
+            newData.forEach(building => {
+              html +=
+                  "<tr>" +
+                "<td>" +
+                building.BIN +
+            
+                "</td><td>" +
+            building.GEOMSOURCE +
+                "</td><td>" +
+                building.Construct_Yr +
+                "</td><td>" +
+                building.Shape_Area +
+                    "</td><td>" +
+              building.Shape_Len +
+                //"</td><td>" +
+                //(building.Name == '' ? null : building.Name) +
+                "</td></tr>";
+            });
+            html += "</tbody></table>";
+            resultPane.innerHTML = html;
+          }
+          else{
+          resultPane.innerHTML ="<div class='alert alert-danger' role='alert'>Invalid Date Range Input Identified/ No Data Found </div >"
+          }
+          });
+        });
+        document.querySelector("#txtBin").value = "";
+      }
+
+      function resetFilters() {
+        document.querySelector("#txtBin").value = "";
+        document.querySelector("#txtStartDate").value = "";
+        document.querySelector("#txtEndDate").value = "";
+        document.querySelector("#results").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
