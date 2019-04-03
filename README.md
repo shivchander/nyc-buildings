@@ -35,7 +35,7 @@ Run mongodb server on one
 mongod
 ```
 
-Change directory to the project folder and build
+One the other, change directory to the project folder and build
 
 ```
 go build
@@ -46,6 +46,7 @@ Run the app
 ```
 go run app.go
 ```
+Note: Run the app again if it fails to find a server. Make sure that an instance of 'mongod' is running.
 
 ## Testing
 
