@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Install Go
 - Install mongodb
-- Download the dataset
+- Download the dataset:
   Download a copy of the dataset from https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh
   Export as building.csv file. Make sure the filename stays the same. Save it to the current project folder.
 
@@ -38,7 +38,7 @@ Run mongodb server on one
 mongod
 ```
 
-One the other, change directory to the project folder and build
+On the other, change directory to the project folder and build
 
 ```
 go build
@@ -62,7 +62,7 @@ Note: This instance has only the first 1000 records due to memory constraints. F
 
 ![](images/fetchAll.JPG)
 
-Search for specific records using BIN
+### Search for specific records using BIN
 
 ![](images/fetchbyBin.JPG)
 
@@ -70,7 +70,7 @@ Search for specific records using BIN
 
 ![](images/invalidBin.JPG)
 
-Search for records within a year range by specifying the start and end years
+### Search for records within a year range by specifying the start and end years
 
 ![](images/fetchbyYear.JPG)
 
