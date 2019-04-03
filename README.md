@@ -12,6 +12,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 * Install Go
 * Install mongodb
+* Download the dataset
+Dowload a copy of the dataset from https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh
+Export as a .CSV file
 
 MongoDB Driver
 
