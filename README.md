@@ -29,6 +29,12 @@ Gorilla/mux - URL router
 go get github.com/gorilla/mux
 ```
 
+BurntSushi/toml - TOML parser and encoder for Go
+
+```
+go get github.com/BurntSushi/toml
+```
+
 ### Running the code
 
 Open two windows of terminal/cmd
